@@ -114,7 +114,7 @@ app.get("/employeegroup", async (req: Request, res: Response) => {
     await prisma.$connect()
 
     try {
-        const group = await prisma
+        const group = await prisma.employeeGroup.create({data: {employee: req.body.id_employee, group: req.body.id_group}})
 
         res.send(group)
 
