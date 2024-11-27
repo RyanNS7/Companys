@@ -9,7 +9,7 @@ export interface CompanyRepo {
     createCompany(company: Company): Promise<CompanyDTO | BadRequestError>
     deleteCompany(company_CNPJ: string): Promise<Boolean | BadRequestError>
     findCompany(company_CNPJ: string): Promise<CompanyDTO | NotFoundError>
-    createCompanyPosition(company_CNPJ: number, service_position: string): Promise<newServicePosition | BadRequestError>
+    createCompanyPosition(company_CNPJ: bigint, service_position: string): Promise<newServicePosition | BadRequestError>
     checkCompanyPosition(company_CNPJ: string, service_position: string): Promise<Boolean>
     
 }
