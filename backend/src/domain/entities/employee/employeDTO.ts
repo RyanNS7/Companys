@@ -3,7 +3,7 @@ export interface IEmployeeDTO{
     id: string
     name: string
     position: string
-    companyCNPJ: number
+    companyCNPJ: bigint
 }
 
 export class EmployeeDTO{
