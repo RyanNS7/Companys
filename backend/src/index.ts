@@ -1,9 +1,6 @@
 require('dotenv').config()
 import { PrismaClient } from "@prisma/client";
 import { Request, Response, urlencoded } from "express";
-
-const prisma = new PrismaClient()
-
 import Express from "express";
 import { EmployeeDTO } from "./domain/entities/employee/employeDTO";
 
@@ -11,6 +8,8 @@ const app = Express()
 
 app.use(Express.urlencoded())
 app.use(Express.json())
+
+const prisma = new PrismaClient()
 
 app.get("/", async (req: Request, res: Response) => {
 
