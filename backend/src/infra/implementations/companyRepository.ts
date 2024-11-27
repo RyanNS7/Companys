@@ -20,7 +20,7 @@ export class CompanyRepository implements CompanyRepo{
         return await checkCompanyPosition(company_CNPJ, service_position)
     }
 
-    async createCompanyPosition(company_CNPJ: number, service_position: string): Promise<newServicePosition | BadRequestError> {
+    async createCompanyPosition(company_CNPJ: bigint, service_position: string): Promise<newServicePosition | BadRequestError> {
         return await createCompanyPosition(String(company_CNPJ), service_position)
     }
 
