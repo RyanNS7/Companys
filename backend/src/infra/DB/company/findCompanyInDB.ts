@@ -9,7 +9,7 @@ export async function findCompany(company_cnpj: string): Promise<CompanyDTO | No
 
         return new CompanyDTO(company.name, company.cnpj)
     } catch (error) {
-        return new NotFoundError(error.name)
+        return new NotFoundError(error)
     }
 
 }

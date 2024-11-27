@@ -11,7 +11,7 @@ export async function deleteCompany(company_cnpj: string): Promise<Boolean | Bad
         return true
         
     } catch (error) {
-        return new BadRequestError(error.meta.cause)
+        return new BadRequestError(error)
     }
 
 }
