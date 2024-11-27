@@ -12,7 +12,7 @@ export async function createCompany(company: Company): Promise<CompanyDTO | BadR
         return new CompanyDTO(companyDB.name, companyDB.cnpj)
         
     } catch (error) {
-        return new BadRequestError(error.name)
+        return new BadRequestError(error)
     }
 
 }
