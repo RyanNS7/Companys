@@ -1,11 +1,12 @@
 import { Task } from "../entities/task/task"
+import { TaskDTO } from "../entities/task/taskDTO"
+import { BadRequestError } from "../errors/BadRequestError"
+import { NotFoundError } from "../errors/NotFoundError"
 
 export interface TaskRepo{
 
-    createTask<T>(task: Task): Promise<T>
-    findTask<T>(id_task: string): Promise<T>
-    changeTaskCompletedStatus<T>(id_task: string): Promise<T>
-    setTaskForEmployee<T>(id_employee: string, id_task: string): Promise<T>
-    setTaskForEmployeeGroup<T>(id_employeesGroup: string, id_task: string): Promise<T>
+    createTask(task: Task): Promise<TaskDTO | BadRequestError>
+    findTask(id_task: string): Promise<TaskDTO | NotFoundError>
+    changeTaskCompletedStatus(id_task: string): Promise<TaskDTO | NotFoundError>
 
 }
