@@ -1,0 +1,63 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Company {
+  name            String
+  cnpj            BigInt     @id @unique
+  Employees       Employee[]
+  CompanyPosition CompanyPosition[]
+}
+
+model Employee {
+  id              String            @id @default(uuid())
+  name            String
+  position        String
+  CompanyPosition CompanyPosition   @relation(fields: [position], references: [id])
+  companyCNPJ     BigInt
+  company         Company           @relation(fields: [companyCNPJ], references: [cnpj])
+  employeeGroup   EmployeeGroup[]
+}
+
+model CompanyPosition{
+  id              String @id @default(uuid())
+  companyCNPJ     BigInt
+  company         Company @relation(fields: [companyCNPJ], references: [cnpj])
+  servicePosition String  
+  Employees       Employee[]
+}
+
+model Task {
+  id            String @id  @default(cuid())
+  title         String
+  description   String?
+  priority      Boolean
+  completed     Boolean
+  Group         Group[]
+}
+
+model Group{
+  id            String    @id @default(uuid())
+  task          String
+  taskID        Task      @relation(fields: [task], references: [id])
+  employeeGroup EmployeeGroup[]
+}
+
+model EmployeeGroup{
+  id              String      @id @default(uuid())
+  group           String 
+  groupID         Group       @relation(fields: [group], references: [id])
+  employee        String
+  employeeID      Employee    @relation(fields: [employee], references: [id])
+}
