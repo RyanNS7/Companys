@@ -14,7 +14,7 @@ export class createCompanyPositionUseCase {
         this.companyRepo = companyRepo
     }
 
-    async createServicePosition(company_cnpj: number, service_position: string){
+    async createServicePosition(company_cnpj: bigint, service_position: string){
 
         const setNewServicePosition = await this.companyRepo.createCompanyPosition(company_cnpj, service_position)
     
