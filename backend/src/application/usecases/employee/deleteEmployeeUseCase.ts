@@ -11,7 +11,7 @@ export class deleteEmployeeUseCase {
 
     async delete(id_employee: string){
 
-        const deleteEmployee = await this.employeeRepo.deleteEmployee<Boolean | BadRequestError>(id_employee)
+        const deleteEmployee = await this.employeeRepo.deleteEmployee(id_employee)
 
         return deleteEmployee instanceof BadRequestError? new BadRequestError(deleteEmployee.message) : deleteEmployee
 

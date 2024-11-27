@@ -1,33 +1,38 @@
 import { createGroupUseCase } from "../../../application/usecases/group/createGroupUseCase"
 import { BadRequestError } from "../../../domain/errors/BadRequestError"
 import { NotFoundError } from "../../../domain/errors/NotFoundError"
+import { EmployeeRepo } from "../../../domain/usecases/employeeRepo"
 import { GroupRepo } from "../../../domain/usecases/groupRepo"
-import { TaskRepo } from "../../../domain/usecases/taskRepo"
 import { httpRequest, httpResponse } from "../../../http/http"
 import { NotFound, ServerError, badRequest, created } from "../../../http/statusCode"
 
 export class createGroupController{
-    taskRepo: TaskRepo
+    employeeRepo: EmployeeRepo
     groupRepo: GroupRepo
 
-    constructor(taskRepo: TaskRepo, groupRepo: GroupRepo){
-        this.taskRepo = taskRepo
+    constructor(employeeRepo: EmployeeRepo, groupRepo: GroupRepo){
+        this.employeeRepo = employeeRepo
         this.groupRepo = groupRepo
     }
 
     async create(httpRequest: httpRequest): Promise<httpResponse>{
 
         const request = {
-            id_task: (httpRequest.body as {id_task: string}).id_task,
+            id_manager: (httpRequest.body as {id_manager: string}).id_manager,
+            id_employees: (httpRequest.body as {id_employees: string[]}).id_employees
         }
 
-        if(request.id_task === undefined){
-            return badRequest("Error, id task is required")
+        if(request.id_manager === undefined){
+            return badRequest("Error, id manager is required")
+        }
+
+        if(request.id_employees === undefined){
+            return badRequest("Error, id employees is required")
         }
 
         try {
 
-            const createGroup = await new createGroupUseCase(this.taskRepo, this.groupRepo).create(request.id_task)
+            const createGroup = await new createGroupUseCase(this.employeeRepo, this.groupRepo).create(request.id_manager, request.id_employees)
 
             if(createGroup instanceof BadRequestError){
                 return badRequest(createGroup.message)

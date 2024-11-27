@@ -1,5 +1,4 @@
 import { ITask, Task } from "../../../domain/entities/task/task"
-import { TaskDTO } from "../../../domain/entities/task/taskDTO"
 import { BadRequestError } from "../../../domain/errors/BadRequestError"
 import { TaskRepo } from "../../../domain/usecases/taskRepo"
 
@@ -20,7 +19,7 @@ export class createTaskUseCase {
             return new BadRequestError(task.message)
         }
 
-        const createTask = await this.taskRepo.createTask<TaskDTO | BadRequestError>(task)
+        const createTask = await this.taskRepo.createTask(task)
 
         return createTask instanceof BadRequestError? new BadRequestError(createTask.message): createTask
 

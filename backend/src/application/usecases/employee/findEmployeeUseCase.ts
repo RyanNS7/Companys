@@ -1,4 +1,3 @@
-import { EmployeeDTO } from "../../../domain/entities/employee/employeDTO"
 import { NotFoundError } from "../../../domain/errors/NotFoundError"
 import { EmployeeRepo } from "../../../domain/usecases/employeeRepo"
 
@@ -12,7 +11,7 @@ export class findEmployeeUseCase{
     }
     async find(id_employee: string){
 
-        const findEmployee = await this.employeeRepo.findEmployee<EmployeeDTO | NotFoundError>(id_employee)
+        const findEmployee = await this.employeeRepo.findEmployee(id_employee)
 
         return findEmployee instanceof NotFoundError? new NotFoundError(findEmployee.message) : findEmployee
 

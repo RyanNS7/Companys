@@ -12,7 +12,7 @@ export class deleteCompanyUseCase{
 
     async delete(company_CNPJ: string){
 
-        const deleteCompany = await this.companyRepo.deleteCompany<Boolean | BadRequestError >(company_CNPJ)
+        const deleteCompany = await this.companyRepo.deleteCompany(company_CNPJ)
 
         return deleteCompany instanceof BadRequestError? new BadRequestError(deleteCompany.message) : deleteCompany
     }

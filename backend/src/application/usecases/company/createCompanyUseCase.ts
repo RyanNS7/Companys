@@ -18,7 +18,7 @@ export class CreateCompanyUseCase{
             return new BadRequestError(company.message)
         }
 
-        return this.companyRepo.createCompany<Company>(company)
+        return this.companyRepo.createCompany(company)
         
     }
 

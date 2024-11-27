@@ -1,5 +1,3 @@
-import { Company } from "../../../domain/entities/company/company"
-import { EmployeeDTO } from "../../../domain/entities/employee/employeDTO"
 import { IEmployee } from "../../../domain/entities/employee/employee"
 import { BadRequestError } from "../../../domain/errors/BadRequestError"
 import { NotFoundError } from "../../../domain/errors/NotFoundError"
@@ -18,13 +16,13 @@ export class createEmployeeUseCase{
 
     async create(employee: IEmployee){
 
-        const findCompany = await this.companyRepo.findCompany<Company | NotFoundError>(employee.company_CNPJ)
+        const findCompany = await this.companyRepo.findCompany(employee.company_CNPJ)
 
         if(findCompany instanceof NotFoundError){
             return new NotFoundError(findCompany.message)
         }
     
-        const createEmployee = await this.employeeRepo.createEmployee<EmployeeDTO | BadRequestError>(employee)
+        const createEmployee = await this.employeeRepo.createEmployee(employee)
     
         return createEmployee instanceof BadRequestError? new BadRequestError(createEmployee.message) : createEmployee
     }

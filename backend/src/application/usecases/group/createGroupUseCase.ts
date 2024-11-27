@@ -1,38 +1,33 @@
-import { EmployeeDTO } from "../../../domain/entities/employee/employeDTO"
+import { TaskDTO } from "../../../domain/entities/task/taskDTO"
 import { BadRequestError } from "../../../domain/errors/BadRequestError"
 import { NotFoundError } from "../../../domain/errors/NotFoundError"
-import { EmployeeRepo } from "../../../domain/usecases/employeeRepo"
 import { GroupRepo } from "../../../domain/usecases/groupRepo"
+import { TaskRepo } from "../../../domain/usecases/taskRepo"
 
 export interface ServiceGroup{
-    id_group: string
-    id_employees: string[]
-    tasks?: string[]
+    id: string
+    task: string
 }
 
 export class createGroupUseCase{
 
-    employeeRepo: EmployeeRepo
+    taskRepo: TaskRepo
     groupRepo: GroupRepo
 
-    constructor(employeeRepo: EmployeeRepo, groupRepo: GroupRepo){
-        this.employeeRepo = employeeRepo
+    constructor(taskRepo: TaskRepo, groupRepo: GroupRepo){
+        this.taskRepo = taskRepo
         this.groupRepo = groupRepo
     }
 
-    async create(id_manager: string, id_employees: string[]){
+    async create(id_task: string){
 
-        const findManger = await this.employeeRepo.findEmployee<EmployeeDTO | NotFoundError>(id_manager)
+        const task = await this.taskRepo.findTask(id_task)
 
-        if(findManger instanceof NotFoundError){
-            return new NotFoundError(findManger.message)
+        if(task instanceof NotFoundError){
+            return new NotFoundError(task.message)
         }
 
-        if(findManger.employee.position !== "manager" && findManger.employee.position !== "geral manager"){
-            return new BadRequestError("It is not allowed to create a group with this role")
-        }
-
-        const createGroup = await this.groupRepo.createGroup<ServiceGroup | BadRequestError>(id_manager, id_employees)
+        const createGroup = await this.groupRepo.createGroup(task.task.id)
 
         return createGroup instanceof BadRequestError? new BadRequestError(createGroup.message) : createGroup
 
