@@ -20,8 +20,6 @@ describe("create company controller", () => {
 
         const sut = await new createCompanyController(companyRepoMock).create(request)
 
-        console.log(sut)
-
         expect(sut.statusCode).toBe(400)
         expect(sut.body).toMatchObject({data: {error: "Error, company name is required"}})
 

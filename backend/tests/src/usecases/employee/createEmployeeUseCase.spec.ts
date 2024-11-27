@@ -67,7 +67,7 @@ describe("create employee use case", () => {
             company_CNPJ: company.CNPJ
         }
 
-        employeeRepoMock.createEmployee.mockResolvedValueOnce(new EmployeeDTO({id: createID(), name: employee.name, companyCNPJ: parseInt(employee.company_CNPJ), position: employee.company_position}))
+        employeeRepoMock.createEmployee.mockResolvedValueOnce(new EmployeeDTO({id: createID(), name: employee.name, companyCNPJ: BigInt(employee.company_CNPJ), position: employee.company_position}))
 
         const sut = await new createEmployeeUseCase(employeeRepoMock, companyRepoMock).create(employee)
 

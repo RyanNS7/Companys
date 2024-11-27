@@ -1,5 +1,6 @@
 import { CreateCompanyUseCase } from "../../../../src/application/usecases/company/createCompanyUseCase"
 import { Company } from "../../../../src/domain/entities/company/company"
+import { CompanyDTO } from "../../../../src/domain/entities/company/companyDTO"
 import { BadRequestError } from "../../../../src/domain/errors/BadRequestError"
 import { CompanyRepo } from "../../../../src/domain/usecases/companyRepo"
 
@@ -20,11 +21,11 @@ describe("create enterprise use case", () => {
             company_cnpj: "12345678907777"
         }
 
-        companyRepoMock.createCompany.mockResolvedValueOnce(new Company(company.name_company, company.company_cnpj))
+        companyRepoMock.createCompany.mockResolvedValueOnce(new CompanyDTO(company.name_company, BigInt(company.company_cnpj)))
         
         const sut = await new CreateCompanyUseCase(companyRepoMock).create(company.name_company, company.company_cnpj)
 
-        expect(sut).toBeInstanceOf(Company)
+        expect(sut).toBeInstanceOf(CompanyDTO)
 
     })
 

@@ -1,6 +1,6 @@
 import { findCompanyUseCase } from "../../../../src/application/usecases/company/findCompanyUseCase"
 import { Company } from "../../../../src/domain/entities/company/company"
-import { BadRequestError } from "../../../../src/domain/errors/BadRequestError"
+import { CompanyDTO } from "../../../../src/domain/entities/company/companyDTO"
 import { NotFoundError } from "../../../../src/domain/errors/NotFoundError"
 import { CompanyRepo } from "../../../../src/domain/usecases/companyRepo"
 
@@ -27,13 +27,13 @@ describe("find enterprise use case", () => {
 
     it("should be the company was successfully found", async() => {
 
-        const company = new Company("empresa.ltda", "1234512345123423")
+        const company = new CompanyDTO("empresa.ltda", BigInt(1234512345123423))
 
         companyRepoMock.findCompany.mockResolvedValue(company)
 
-        const sut = await new findCompanyUseCase(companyRepoMock).find(company.CNPJ)
+        const sut = await new findCompanyUseCase(companyRepoMock).find(String(company.CNPJ))
 
-        expect(sut).toBeInstanceOf(Company)
+        expect(sut).toBeInstanceOf(CompanyDTO)
 
     })
 })

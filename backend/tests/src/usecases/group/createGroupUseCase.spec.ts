@@ -1,15 +1,15 @@
 import { createGroupUseCase } from "../../../../src/application/usecases/group/createGroupUseCase"
-import { EmployeeDTO } from "../../../../src/domain/entities/employee/employeDTO"
+import { TaskDTO } from "../../../../src/domain/entities/task/taskDTO"
 import { BadRequestError } from "../../../../src/domain/errors/BadRequestError"
 import { NotFoundError } from "../../../../src/domain/errors/NotFoundError"
-import { EmployeeRepo } from "../../../../src/domain/usecases/employeeRepo"
 import { GroupRepo } from "../../../../src/domain/usecases/groupRepo"
+import { TaskRepo } from "../../../../src/domain/usecases/taskRepo"
 import { createID } from "../../../createTestID"
 
-const employeeRepoMock: jest.Mocked<EmployeeRepo> = {
-    createEmployee: jest.fn(),
-    deleteEmployee: jest.fn(),
-    findEmployee: jest.fn(),
+const taskRepoMock: jest.Mocked<TaskRepo> = {
+    createTask: jest.fn(),
+    changeTaskCompletedStatus: jest.fn(),
+    findTask: jest.fn(),
 }
 
 const groupRepoMock:jest.Mocked<GroupRepo> = {
@@ -18,25 +18,24 @@ const groupRepoMock:jest.Mocked<GroupRepo> = {
     findGroup: jest.fn(),
 }
 
-const manager = new EmployeeDTO({id: createID(), name: "Ryan", companyCNPJ: 17122001170202, position: "manager"})
+const task = new TaskDTO({id: createID(), completed: false, priority:true, description: "testando aqui", title: "Teste supremo dos use cases"})
 
 describe("create group use case", () => {
     it("should be create the employee group successfully", async() => {
 
-        employeeRepoMock.findEmployee.mockResolvedValueOnce(manager)
-        groupRepoMock.createGroup.mockResolvedValue({id_group: createID(), id_employees: [manager.employee.id, manager.employee.id]})
+        taskRepoMock.findTask.mockResolvedValueOnce(task)
+        groupRepoMock.createGroup.mockResolvedValue({id: createID(), task: task.task.id})
 
-        const sut = await new createGroupUseCase(employeeRepoMock, groupRepoMock).create(manager.employee.id, [manager.employee.id, manager.employee.id])
+        const sut = await new createGroupUseCase(taskRepoMock, groupRepoMock).create(task.task.id)
 
         expect(sut).toBeInstanceOf(Object)
     })
 
     it("should be error, employee who will create the group was not found", async() => {
 
-        employeeRepoMock.findEmployee.mockResolvedValueOnce(new NotFoundError("Manager not found"))
-        groupRepoMock.createGroup.mockResolvedValue({id_group: createID(), id_employees: [manager.employee.id, manager.employee.id]})
+        taskRepoMock.findTask.mockResolvedValueOnce(new NotFoundError("Task not found"))
 
-        const sut = await new createGroupUseCase(employeeRepoMock, groupRepoMock).create(manager.employee.id, [manager.employee.id, manager.employee.id])
+        const sut = await new createGroupUseCase(taskRepoMock, groupRepoMock).create(createID())
 
         expect(sut).toBeInstanceOf(NotFoundError)
         expect(sut).toMatchObject({statusCode: 404})
@@ -44,10 +43,10 @@ describe("create group use case", () => {
 
     it("should be error creating group", async() => {
 
-        employeeRepoMock.findEmployee.mockResolvedValueOnce(manager)
+        taskRepoMock.findTask.mockResolvedValueOnce(task)
         groupRepoMock.createGroup.mockResolvedValue(new BadRequestError("Error creating group"))
 
-        const sut = await new createGroupUseCase(employeeRepoMock, groupRepoMock).create(manager.employee.id, [manager.employee.id, manager.employee.id])
+        const sut = await new createGroupUseCase(taskRepoMock, groupRepoMock).create(task.task.id)
 
         expect(sut).toBeInstanceOf(BadRequestError)
         expect(sut).toMatchObject({statusCode: 400})

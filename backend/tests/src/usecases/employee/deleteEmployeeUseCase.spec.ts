@@ -12,7 +12,7 @@ const employeeRepoMock: jest.Mocked<EmployeeRepo> = {
 }
 
 const company = new Company("empresa.LTDA", "12345678912345")
-const employeeInfo = new EmployeeDTO({id: createID(), name: "Ryan", position: "manager", companyCNPJ: parseInt(company.CNPJ)})
+const employeeInfo = new EmployeeDTO({id: createID(), name: "Ryan", position: "manager", companyCNPJ: BigInt(company.CNPJ)})
 
 describe("delete employee use case", () => {
     it("should be employee deleted successfully", async() => {

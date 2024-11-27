@@ -1,12 +1,11 @@
 import { createGroupController } from "../../../../../src/adapters/controllers/group/createGroupController"
-import { EmployeeRepo } from "../../../../../src/domain/usecases/employeeRepo"
 import { GroupRepo } from "../../../../../src/domain/usecases/groupRepo"
-import { createID } from "../../../../createTestID"
+import { TaskRepo } from "../../../../../src/domain/usecases/taskRepo"
 
-const employeeRepoMock: jest.Mocked<EmployeeRepo> = {
-    createEmployee: jest.fn(),
-    deleteEmployee: jest.fn(),
-    findEmployee: jest.fn(),
+const taskRepoMock: jest.Mocked<TaskRepo> = {
+    changeTaskCompletedStatus: jest.fn(),
+    createTask: jest.fn(),
+    findTask: jest.fn(),
 }
 
 const groupRepoMock:jest.Mocked<GroupRepo> = {
@@ -16,33 +15,19 @@ const groupRepoMock:jest.Mocked<GroupRepo> = {
 }
 
 describe("create group controller", () => {
-    it("should be return a 400 error because the employees id is undefined", async() => {
+
+    it("should be return a 400 error because the task id is undefined", async() => {
 
         const request = {
             body: {
-                id_manager: createID()
+                
             }
         }
 
-        const sut = await new createGroupController(employeeRepoMock, groupRepoMock).create(request)
+        const sut = await new createGroupController(taskRepoMock, groupRepoMock).create(request)
 
         expect(sut.statusCode).toBe(400)
-        expect(sut.body).toMatchObject({data: {error: "Error, id employees is required"}})
-
-    })
-
-    it("should be return a 400 error because the manager id is undefined", async() => {
-
-        const request = {
-            body: {
-                id_employes: [createID(), createID(), createID()]
-            }
-        }
-
-        const sut = await new createGroupController(employeeRepoMock, groupRepoMock).create(request)
-
-        expect(sut.statusCode).toBe(400)
-        expect(sut.body).toMatchObject({data: {error: "Error, id manager is required"}})
+        expect(sut.body).toMatchObject({data: {error: "Error, id task is required"}})
 
     })
 })

@@ -18,7 +18,7 @@ describe("create company position use case", () => {
 
         companyRepoMock.createCompanyPosition.mockResolvedValue(new BadRequestError("error creating new service position"))
 
-        const sut = await new createCompanyPositionUseCase(companyRepoMock).createServicePosition(parseInt(company.CNPJ), "manager")
+        const sut = await new createCompanyPositionUseCase(companyRepoMock).createServicePosition(BigInt(company.CNPJ), "manager")
 
         expect(sut).toBeInstanceOf(BadRequestError)
         expect(sut).toMatchObject({statusCode: 400})
@@ -29,10 +29,10 @@ describe("create company position use case", () => {
         const company = new Company("empresa.ltda", "1234512345123423")
         const new_service_position = "manager"
 
-        companyRepoMock.createCompanyPosition.mockResolvedValue({new_service_position, company_cnpj: company.CNPJ})
+        companyRepoMock.createCompanyPosition.mockResolvedValue({new_service_position, company_cnpj: BigInt(company.CNPJ)})
 
-        const sut = await new createCompanyPositionUseCase(companyRepoMock).createServicePosition(parseInt(company.CNPJ), "manager")
+        const sut = await new createCompanyPositionUseCase(companyRepoMock).createServicePosition(BigInt(company.CNPJ), "manager")
 
-        expect(sut).toMatchObject({new_service_position, company_cnpj: company.CNPJ})
+        expect(sut).toMatchObject({new_service_position, company_cnpj: BigInt(company.CNPJ)})
     })
 })

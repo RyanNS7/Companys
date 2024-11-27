@@ -11,7 +11,7 @@ const employeeRepoMock: jest.Mocked<EmployeeRepo> = {
 }
 
 const company = new Company("empresa.LTDA", "12345678912345")
-const employeeInfo = new EmployeeDTO({id: createID(), name: "Ryan", companyCNPJ: parseInt(company.CNPJ), position: "manager"})
+const employeeInfo = new EmployeeDTO({id: createID(), name: "Ryan", companyCNPJ: BigInt(company.CNPJ), position: "manager"})
 
 describe("find employee use case", () => {
     it("should be employee found successfully", async() => {

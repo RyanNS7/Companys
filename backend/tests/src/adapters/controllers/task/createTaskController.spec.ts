@@ -4,9 +4,7 @@ import { TaskRepo } from "../../../../../src/domain/usecases/taskRepo"
 const taskRepoMock: jest.Mocked<TaskRepo> = {
     createTask: jest.fn(),
     findTask: jest.fn(),
-    changeTaskCompletedStatus: jest.fn(),
-    setTaskForEmployee: jest.fn(),
-    setTaskForEmployeeGroup: jest.fn()
+    changeTaskCompletedStatus: jest.fn()
 }
 
 describe("create task controller", () => {
