@@ -10,13 +10,13 @@ const groupRouter = Express.Router()
 groupRouter.post("/create", async (req: Request, res: Response) => {
     const group = await new createGroupController(new taskRepository, new GroupRepository).create(req)
 
-    res.json(group.body).status(group.statusCode)
+    res.status(group.statusCode).json(group.body)
 })
 
 groupRouter.post("/newEmployee", async (req: Request, res: Response) => {
     const addNewEmployee = await new addAnotherEmployeeToTheGroupController(new EmployeeRepository, new GroupRepository).addEmployee(req)
 
-    res.json(addNewEmployee.body).status(addNewEmployee.statusCode)
+    res.status(addNewEmployee.statusCode).json(addNewEmployee.body)
 })
 
 export { groupRouter }

@@ -10,19 +10,19 @@ const employeeRouter = Express.Router()
 employeeRouter.post("/create", async (req: Request, res: Response) => {
     const employee = await new createEmployeeController(new EmployeeRepository, new CompanyRepository).create(req)
 
-    res.json(employee.body).status(employee.statusCode)
+    res.status(employee.statusCode).json(employee.body)
 })
 
 employeeRouter.delete("/delete", async (req: Request, res: Response) => {
     const employee = await new deleteEmployeeController(new EmployeeRepository).delete(req)
 
-    res.json(employee.body).status(employee.statusCode)
+    res.status(employee.statusCode).json(employee.body)
 })
 
 employeeRouter.get("/find", async (req: Request, res: Response) => {
     const employee = await new findEmployeeController(new EmployeeRepository).find(req)
 
-    res.json(employee.body).status(employee.statusCode)
+    res.status(employee.statusCode).json(employee.body)
 })
 
 export { employeeRouter }

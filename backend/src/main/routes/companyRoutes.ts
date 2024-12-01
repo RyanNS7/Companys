@@ -10,25 +10,25 @@ const companyRouter = Express.Router()
 companyRouter.post("/create", async (req: Request, res: Response) => {
     const company = await new createCompanyController(new CompanyRepository).create(req)
 
-    res.json(company.body).status(company.statusCode)
+    res.status(company.statusCode).json(company.body)
 })
 
 companyRouter.post("/createPosition", async (req: Request, res: Response) => {
     const company_position = await new createCompanyPositionController(new CompanyRepository).createServicePosition(req)
 
-    res.json(company_position.body).status(company_position.statusCode)
+    res.status(company_position.statusCode).json(company_position.body)
 })
 
 companyRouter.delete("/delete", async (req: Request, res: Response) => {
     const company = await new deleteCompanyController(new CompanyRepository).delete(req)
 
-    res.json(company.body).status(company.statusCode)
+    res.status(company.statusCode).json(company.body)
 })
 
 companyRouter.get("/find", async (req: Request, res: Response) => {
     const company = await new findCompanyController(new CompanyRepository).find(req)
 
-    res.json(company.body).status(company.statusCode)
+    res.status(company.statusCode).json(company.body)
 })
 
 export { companyRouter }
