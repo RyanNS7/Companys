@@ -31,7 +31,7 @@ export class createCompanyPositionController{
 
             const createPosition = await new createCompanyPositionUseCase(this.companyRepo).createServicePosition(request.company_cnpj, request.new_service_position)
 
-            return createPosition instanceof BadRequestError? badRequest(createPosition.message) : created(createPosition)
+            return createPosition instanceof BadRequestError? badRequest(createPosition.message) : created({...createPosition, company_cnpj: String(createPosition.company_cnpj)})
 
         } catch (error) {
             return ServerError(error.message)
