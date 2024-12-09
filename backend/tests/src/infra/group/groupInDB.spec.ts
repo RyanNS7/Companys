@@ -1,6 +1,6 @@
 import { ServiceGroup } from "../../../../src/application/usecases/group/createGroupUseCase"
 import { Company } from "../../../../src/domain/entities/company/company"
-import { EmployeeDTO } from "../../../../src/domain/entities/employee/employeDTO"
+import { EmployeeDTO } from "../../../../src/domain/entities/employee/employeeDTO"
 import { IEmployee } from "../../../../src/domain/entities/employee/employee"
 import { ITask, Task } from "../../../../src/domain/entities/task/task"
 import { TaskDTO } from "../../../../src/domain/entities/task/taskDTO"

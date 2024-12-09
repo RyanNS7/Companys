@@ -1,5 +1,5 @@
 import { Company } from "../../../../src/domain/entities/company/company"
-import { EmployeeDTO } from "../../../../src/domain/entities/employee/employeDTO"
+import { EmployeeDTO } from "../../../../src/domain/entities/employee/employeeDTO"
 import { IEmployee } from "../../../../src/domain/entities/employee/employee"
 import { BadRequestError } from "../../../../src/domain/errors/BadRequestError"
 import { NotFoundError } from "../../../../src/domain/errors/NotFoundError"
