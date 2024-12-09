@@ -1,4 +1,4 @@
-import { EmployeeDTO } from "../entities/employee/employeDTO"
+import { EmployeeDTO } from "../entities/employee/employeeDTO"
 import { IEmployee } from "../entities/employee/employee"
 import { BadRequestError } from "../errors/BadRequestError"
 import { NotFoundError } from "../errors/NotFoundError"
