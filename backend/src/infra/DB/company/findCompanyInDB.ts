@@ -7,7 +7,7 @@ export async function findCompany(company_cnpj: string): Promise<CompanyDTO | No
     try {
         const company = await prisma.company.findUniqueOrThrow({where: {cnpj: parseInt(company_cnpj)}})
 
-        return new CompanyDTO(company.name, company.cnpj)
+        return new CompanyDTO(company.name, company.cnpj.toString())
     } catch (error) {
         return new NotFoundError(error)
     }
