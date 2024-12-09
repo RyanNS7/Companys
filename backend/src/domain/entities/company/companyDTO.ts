@@ -1,9 +1,9 @@
 
 export class CompanyDTO{
     nameCompany: string
-    readonly CNPJ: bigint
+    readonly CNPJ: string
 
-    constructor(nameCompany: string, CNPJ: bigint){
+    constructor(nameCompany: string, CNPJ: string){
         this.nameCompany = nameCompany
         this.CNPJ = CNPJ
     }
