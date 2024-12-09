@@ -51,7 +51,7 @@ export class createEmployeeController{
             return created(employee)
             
         } catch (error) {
-            return ServerError(error.message)
+            return ServerError(error)
         }
     }
     
