@@ -1,4 +1,4 @@
-import { EmployeeDTO } from "../../domain/entities/employee/employeDTO";
+import { EmployeeDTO } from "../../domain/entities/employee/employeeDTO";
 import { IEmployee } from "../../domain/entities/employee/employee";
 import { BadRequestError } from "../../domain/errors/BadRequestError";
 import { NotFoundError } from "../../domain/errors/NotFoundError";
