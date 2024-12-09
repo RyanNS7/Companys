@@ -9,7 +9,7 @@ import { findGroup } from "../DB/group/findGroupInDB";
 
 export class GroupRepository implements GroupRepo{
     async addAnotherEmployeeToTheGroup(id_employees: string, id_group: string): Promise<EmployeeGroup | BadRequestError> {
-        return await addAnotherEmployeeToTheGroup(id_employees, id_group)
+        return await addAnotherEmployeeToTheGroup(id_group, id_employees)
     }
 
     async createGroup(id_task: string): Promise<ServiceGroup | BadRequestError> {
