@@ -1,5 +1,5 @@
 import { addAnotherEmployeeToTheGroupUseCase } from "../../../../src/application/usecases/group/addAnotherEmployeeToTheGroupUseCase"
-import { EmployeeDTO } from "../../../../src/domain/entities/employee/employeDTO"
+import { EmployeeDTO } from "../../../../src/domain/entities/employee/employeeDTO"
 import { BadRequestError } from "../../../../src/domain/errors/BadRequestError"
 import { NotFoundError } from "../../../../src/domain/errors/NotFoundError"
 import { EmployeeRepo } from "../../../../src/domain/usecases/employeeRepo"
@@ -23,7 +23,7 @@ describe("add another employee to the group use case", () => {
 
     it("should be error adding employee to group", async() => {
 
-        const new_employee = new EmployeeDTO({id: createID(), name: "Ryan", companyCNPJ: BigInt(17122001170202), position: "employee"})
+        const new_employee = new EmployeeDTO({id: createID(), name: "Ryan", companyCNPJ: String(17122001170202), position: "employee"})
 
         groupRepoMock.findGroup.mockResolvedValueOnce({id: createID(), task: createID()})
         groupRepoMock.addAnotherEmployeeToTheGroup.mockResolvedValueOnce({id: createID(), group: createID(), employee: new_employee.employee.id})
@@ -35,7 +35,7 @@ describe("add another employee to the group use case", () => {
 
     it("should be error, group not found", async() => {
 
-        const new_employee = new EmployeeDTO({id: createID(), name: "Ryan", companyCNPJ: BigInt(17122001170202), position: "employee"})
+        const new_employee = new EmployeeDTO({id: createID(), name: "Ryan", companyCNPJ: String(17122001170202), position: "employee"})
 
         groupRepoMock.findGroup.mockResolvedValueOnce(new NotFoundError("Group not found"))
 
@@ -47,7 +47,7 @@ describe("add another employee to the group use case", () => {
 
     it("should be error adding employee to group", async() => {
 
-        const new_employee = new EmployeeDTO({id: createID(), name: "Ryan", companyCNPJ: BigInt(17122001170202), position: "employee"})
+        const new_employee = new EmployeeDTO({id: createID(), name: "Ryan", companyCNPJ: String(17122001170202), position: "employee"})
 
         groupRepoMock.findGroup.mockResolvedValueOnce({id: createID(), task: createID()})
         groupRepoMock.addAnotherEmployeeToTheGroup.mockResolvedValueOnce(new BadRequestError("error adding employee to group"))

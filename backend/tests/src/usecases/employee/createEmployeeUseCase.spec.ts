@@ -1,6 +1,6 @@
 import { createEmployeeUseCase } from "../../../../src/application/usecases/employee/createEmployeeUseCase"
 import { Company } from "../../../../src/domain/entities/company/company"
-import { EmployeeDTO } from "../../../../src/domain/entities/employee/employeDTO"
+import { EmployeeDTO } from "../../../../src/domain/entities/employee/employeeDTO"
 import { IEmployee } from "../../../../src/domain/entities/employee/employee"
 import { BadRequestError } from "../../../../src/domain/errors/BadRequestError"
 import { NotFoundError } from "../../../../src/domain/errors/NotFoundError"
@@ -67,7 +67,7 @@ describe("create employee use case", () => {
             company_CNPJ: company.CNPJ
         }
 
-        employeeRepoMock.createEmployee.mockResolvedValueOnce(new EmployeeDTO({id: createID(), name: employee.name, companyCNPJ: BigInt(employee.company_CNPJ), position: employee.company_position}))
+        employeeRepoMock.createEmployee.mockResolvedValueOnce(new EmployeeDTO({id: createID(), name: employee.name, companyCNPJ: String(employee.company_CNPJ), position: employee.company_position}))
 
         const sut = await new createEmployeeUseCase(employeeRepoMock, companyRepoMock).create(employee)
 

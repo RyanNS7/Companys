@@ -27,7 +27,7 @@ describe("find enterprise use case", () => {
 
     it("should be the company was successfully found", async() => {
 
-        const company = new CompanyDTO("empresa.ltda", BigInt(1234512345123423))
+        const company = new CompanyDTO("empresa.ltda", String(1234512345123423))
 
         companyRepoMock.findCompany.mockResolvedValue(company)
 

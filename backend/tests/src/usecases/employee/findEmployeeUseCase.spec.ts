@@ -1,5 +1,5 @@
 import { Company } from "../../../../src/domain/entities/company/company"
-import { EmployeeDTO } from "../../../../src/domain/entities/employee/employeDTO"
+import { EmployeeDTO } from "../../../../src/domain/entities/employee/employeeDTO"
 import { NotFoundError } from "../../../../src/domain/errors/NotFoundError"
 import { EmployeeRepo } from "../../../../src/domain/usecases/employeeRepo"
 import { createID } from "../../../createTestID"
@@ -11,7 +11,7 @@ const employeeRepoMock: jest.Mocked<EmployeeRepo> = {
 }
 
 const company = new Company("empresa.LTDA", "12345678912345")
-const employeeInfo = new EmployeeDTO({id: createID(), name: "Ryan", companyCNPJ: BigInt(company.CNPJ), position: "manager"})
+const employeeInfo = new EmployeeDTO({id: createID(), name: "Ryan", companyCNPJ: String(company.CNPJ), position: "manager"})
 
 describe("find employee use case", () => {
     it("should be employee found successfully", async() => {

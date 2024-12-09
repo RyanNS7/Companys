@@ -21,7 +21,7 @@ describe("create enterprise use case", () => {
             company_cnpj: "12345678907777"
         }
 
-        companyRepoMock.createCompany.mockResolvedValueOnce(new CompanyDTO(company.name_company, BigInt(company.company_cnpj)))
+        companyRepoMock.createCompany.mockResolvedValueOnce(new CompanyDTO(company.name_company, String(company.company_cnpj)))
         
         const sut = await new CreateCompanyUseCase(companyRepoMock).create(company.name_company, company.company_cnpj)
 
