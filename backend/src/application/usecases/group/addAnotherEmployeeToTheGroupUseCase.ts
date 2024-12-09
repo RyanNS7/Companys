@@ -27,7 +27,13 @@ export class addAnotherEmployeeToTheGroupUseCase{
             return new NotFoundError(findGroup.message)
         }
 
-        const addEmployeeToTheGroup = await this.groupRepo.addAnotherEmployeeToTheGroup(id_employee, id_group)
+        const findEmployee = await this.employeeRepo.findEmployee(id_employee)
+
+        if(findEmployee instanceof NotFoundError){
+            return new NotFoundError(findEmployee.message)
+        }
+
+        const addEmployeeToTheGroup = await this.groupRepo.addAnotherEmployeeToTheGroup(findEmployee.employee.id, findGroup.id)
 
         return addEmployeeToTheGroup instanceof BadRequestError? new BadRequestError(addEmployeeToTheGroup.message) : addEmployeeToTheGroup
     }
