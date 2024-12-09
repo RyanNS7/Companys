@@ -9,7 +9,7 @@ export async function createCompany(company: Company): Promise<CompanyDTO | BadR
 
         const companyDB = await prisma.company.create({data: {name: company.nameCompany, cnpj: parseInt(company.CNPJ)}})
 
-        return new CompanyDTO(companyDB.name, companyDB.cnpj)
+        return new CompanyDTO(companyDB.name, companyDB.cnpj.toString())
         
     } catch (error) {
         return new BadRequestError(error)
